@@ -44,6 +44,7 @@ function swapPhoto() {
 var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
+
 var mRequest = new XMLHttpRequest();
 
 // Array holding GalleryImage objects (see below).
