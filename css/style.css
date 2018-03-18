@@ -48,7 +48,6 @@ body {
 #nav {
 	clear: both;
 	position: relative;
-	left:500px;
 }
 
 #prevPhoto {
@@ -64,7 +63,10 @@ body {
 #nextPhoto {
 	height: 42px;
 	width: 42px;
+	float:right;
 }
+
+
 
 .details p {
 	margin-top: 20px;
