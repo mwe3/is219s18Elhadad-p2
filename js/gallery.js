@@ -105,7 +105,20 @@ var mJson;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
+
 var mUrl = 'images.json';
+var mRequest = new XMLHttpRequest();
+mRequest.onreadystatechange = function() {
+
+	if (mRequest.readyState == 4 && mRequest.status == 200) {
+	try {
+	mJson = JSON.parse(mRequest.responseText);
+
+	for(var i = 0; mJson.images.length; i++) { 
+	
+		mImages.push(new GalleryImage((mJson.images[i].image, mJson.images[i].location, mJson.images[i].description, mJson.images[i].date))); 
+	
+	}
 
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
