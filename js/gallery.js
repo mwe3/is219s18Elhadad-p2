@@ -89,7 +89,16 @@ var mCurrentIndex = 0;
 var mRequest = new XMLHttpRequest();
 
 // Array holding GalleryImage objects (see below).
-var mImages = [];
+
+var mImages = []
+	mImages.push(new GalleryImage("img/places/greece.jpg", "Greace", "The Beautiful Islands of Greeece", "01/01/2016" ));
+	mImages.push(new GalleryImage("img/places/switzerland.jpg", "Switzerland", "The Beautiful Mountains of Switzerland", "01/01/2016"));
+	mImages.push(new GalleryImage("img/places/italy.jpg", "Italy", "The Beautiful Landscape of italy", "01/01/2016"));
+	mImages.push(new GalleryImage("img/places/france.jpg", "France", "The Beautiful Landscape of France", "01/01/2016"));
+
+for (var i = 0; i < mImages.length; i++) {
+console.log(mImages[i]); 
+}
 
 // Holds the retrived JSON information
 var mJson;
