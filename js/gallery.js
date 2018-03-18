@@ -56,7 +56,7 @@ function swapPhoto() {
 			
 		
 		} else { 
-			mCurrentIndex = 0; // resets it back to zero
+			mCurrentIndex = 0; 
 		
 		};
 		
@@ -65,11 +65,20 @@ function swapPhoto() {
 	
 };
 
+function changeSwap() {
+	
+	
 
-
-
-
-
+		if(mCurrentIndex == 0) {
+			
+			mCurrentIndex = mImages.length-1;
+		
+		mCurrentIndex++;
+		} else { 
+			mCurrentIndex = --
+			$('#photo').attr("src", mImages[mCurrentIndex].image);
+		
+		}
 }
 
 // Counter for the mImages array
@@ -112,9 +121,9 @@ window.addEventListener('load', function() {
 
 }, false);
 
-function GalleryImage(loc, desc, date, img){
-	this.location = loc;
-	this.description = desc;
+function GalleryImage(location, description, date, img){
+	this.location = location;
+	this.description = description;
 	this.date = date;
 	this.image = img;
 }
