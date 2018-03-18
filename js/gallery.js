@@ -38,6 +38,38 @@ function swapPhoto() {
 	//with a new image from your images array which is loaded 
 	//from the JSON string
 	console.log('swap photo');
+	$('.location').html('<p>Location: ' + mImages[mCurrentIndex].location + '</p)');
+	$('.description').html('<p>Description: ' + mImages[mCurrentIndex].description + '</p)');
+	$('.date').html('<p>Date: ' + mImages[mCurrentIndex].date + '</p)');
+	$('#photo').attr("src", mImages[mCurrentIndex].image);
+
+	if(mCurrentIndex < mImages.length) {
+			
+			$('.moreIndicator').click(function(){ 
+				$('.details').slideDown().toggle();
+				
+			});
+			
+		mCurrentIndex++;
+		
+		$('.details').hide();
+			
+		
+		} else { 
+			mCurrentIndex = 0; // resets it back to zero
+		
+		};
+		
+	console.log('swap photo');
+	console.log(mImages[mCurrentIndex].description);
+	
+};
+
+
+
+
+
+
 }
 
 // Counter for the mImages array
