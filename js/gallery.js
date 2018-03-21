@@ -67,9 +67,6 @@ function swapPhoto(mJson) {
 };
 
 function reversSwap() {
-	
-	
-
 		if(mCurrentIndex == 0) {
 			
 			mCurrentIndex = mImages.length-1;
@@ -84,42 +81,35 @@ function reversSwap() {
 }
 
 
-
-
-
 // Counter for the mImages array
 var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
 
 var mRequest = new XMLHttpRequest();
-var mUrl = "images.json";
+var url = "images.json";
 
-xmlhttp.onreadystatechange = function(){
-	if(this.readyState == 4 && this.status == 200) {
-		var mJson = JSON.parse(this.responseText);
-		swapPhoto();
-}
-
-for(var i = 0; mJson.images.length; i++) {
-	mImages.push(new GalleryImage((mJson.images[i].image, mJson.images[i].location, mJson.images[i].description, mJson.images[i].date))); 
-}
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        myFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
 	
 };
-
-xmlhttp.open("GET", url, true);
-xmlhttp.send();		
+		
 // Array holding GalleryImage objects (see below).
 
 var mImages = []
-	mImages.push(new GalleryImage("img/places/greece.jpg", "Greece", "The Beautiful Islands of Greeece", "01/01/2016" ));
-	mImages.push(new GalleryImage("img/places/switzerland.jpg", "Switzerland", "The Beautiful Mountains of Switzerland", "01/01/2016"));
-	mImages.push(new GalleryImage("img/places/italy.jpg", "Italy", "The Beautiful Landscape of italy", "01/01/2016"));
-	mImages.push(new GalleryImage("img/places/france.jpg", "France", "The Beautiful Landscape of France", "01/01/2016"));
 
-for (var i = 0; i < mImages.length; i++) {
-console.log(mImages[i]); 
-}
+mImages.push(new GalleryImage("img/places/greece.jpg", "Greece", "The Beautiful Islands of Greeece", "01/01/2016" ));
+        mImages.push(new GalleryImage("img/places/switzerland.jpg", "Switzerland", "The Beautiful Mountains of Switzerland", "01/01/2016"));
+        mImages.push(new GalleryImage("img/places/italy.jpg", "Italy", "The Beautiful Landscape of italy", "01/01/2016"));
+        mImages.push(new GalleryImage("img/places/france.jpg", "France", "The Beautiful Landscape of France", "01/01/2016"));
+
+
 
 // Holds the retrived JSON information
 var mJson;
@@ -158,4 +148,6 @@ function GalleryImage(location, description, date, img){
 	this.description = description;
 	this.date = date;
 	this.image = img;
-};
+}
+
+
