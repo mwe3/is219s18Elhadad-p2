@@ -32,18 +32,19 @@ function animate() {
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
-function swapPhoto() {
+function swapPhoto(mJson) {
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
-	console.log('swap photo');
+
+	$('#photo').attr("src", mImages[mCurrentIndex].image);
 	$('.location').html('<p>Location: ' + mImages[mCurrentIndex].location + '</p)');
 	$('.description').html('<p>Description: ' + mImages[mCurrentIndex].description + '</p)');
 	$('.date').html('<p>Date: ' + mImages[mCurrentIndex].date + '</p)');
-	$('#photo').attr("src", mImages[mCurrentIndex].image);
-
-	if(mCurrentIndex < mImages.length) {
+	
+	
+		if(mCurrentIndex < mImages.length) {
 			
 			$('.moreIndicator').click(function(){ 
 				$('.details').slideDown().toggle();
@@ -56,7 +57,7 @@ function swapPhoto() {
 			
 		
 		} else { 
-			mCurrentIndex = 0; 
+			mCurrentIndex = 0; // resets it back to zero
 		
 		};
 		
@@ -65,7 +66,7 @@ function swapPhoto() {
 	
 };
 
-function changeSwap() {
+function reversSwap() {
 	
 	
 
@@ -79,7 +80,12 @@ function changeSwap() {
 			$('#photo').attr("src", mImages[mCurrentIndex].image);
 		
 		}
+	
 }
+
+
+
+
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -87,11 +93,26 @@ var mCurrentIndex = 0;
 // XMLHttpRequest variable
 
 var mRequest = new XMLHttpRequest();
+var mUrl = "images.json";
 
+xmlhttp.onreadystatechange = function(){
+	if(this.readyState == 4 && this.status == 200) {
+		var mJson = JSON.parse(this.responseText);
+		swapPhoto();
+}
+
+for(var i = 0; mJson.images.length; i++) {
+	mImages.push(new GalleryImage((mJson.images[i].image, mJson.images[i].location, mJson.images[i].description, mJson.images[i].date))); 
+}
+	
+};
+
+xmlhttp.open("GET", url, true);
+xmlhttp.send();		
 // Array holding GalleryImage objects (see below).
 
 var mImages = []
-	mImages.push(new GalleryImage("img/places/greece.jpg", "Greace", "The Beautiful Islands of Greeece", "01/01/2016" ));
+	mImages.push(new GalleryImage("img/places/greece.jpg", "Greece", "The Beautiful Islands of Greeece", "01/01/2016" ));
 	mImages.push(new GalleryImage("img/places/switzerland.jpg", "Switzerland", "The Beautiful Mountains of Switzerland", "01/01/2016"));
 	mImages.push(new GalleryImage("img/places/italy.jpg", "Italy", "The Beautiful Landscape of italy", "01/01/2016"));
 	mImages.push(new GalleryImage("img/places/france.jpg", "France", "The Beautiful Landscape of France", "01/01/2016"));
@@ -107,18 +128,7 @@ var mJson;
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 
 var mUrl = 'images.json';
-var mRequest = new XMLHttpRequest();
-mRequest.onreadystatechange = function() {
 
-	if (mRequest.readyState == 4 && mRequest.status == 200) {
-	try {
-	mJson = JSON.parse(mRequest.responseText);
-
-	for(var i = 0; mJson.images.length; i++) { 
-	
-		mImages.push(new GalleryImage((mJson.images[i].image, mJson.images[i].location, mJson.images[i].description, mJson.images[i].date))); 
-	
-	}
 
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
@@ -148,4 +158,4 @@ function GalleryImage(location, description, date, img){
 	this.description = description;
 	this.date = date;
 	this.image = img;
-}
+};
