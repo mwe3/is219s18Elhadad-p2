@@ -37,7 +37,21 @@ function swapPhoto(mJson) {
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
+	
+	mCurrentIndex++;
+	if(mCurrentIndex >= mImages.length){
+		mCurrentIndex = 0;
+	}
 
+	var currentImg = mImages[mCurrentIndex];
+	console.log("Swap Photo: " + currentImg.imgPath);
+	document.getElementById("photo").src = currentImg.imgPath;
+	document.getElementsByClassName("location")[0].innerHTML = "Location: " + currentImg.imgLocation;
+	document.getElementsByClassName("description")[0].innerHTML = "Description: " + currentImg.description;
+	document.getElementsByClassName("date")[0].innerHTML = "Date: " + currentImg.date;
+
+	console.log("swap photo");
+}
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -67,16 +81,7 @@ mrequest.send();
 
 // Array holding GalleryImage objects (see below).
 
-var mImages = []
-
-mImages.push(new GalleryImage("img/places/greece.jpg", "Greece", "The Beautiful Islands of Greeece", "01/01/2016" ));
-        mImages.push(new GalleryImage("img/places/switzerland.jpg", "Switzerland", "The Beautiful Mountains of Switzerland", "01/01/2016"));
-        mImages.push(new GalleryImage("img/places/italy.jpg", "Italy", "The Beautiful Landscape of italy", "01/01/2016"));
-        mImages.push(new GalleryImage("img/places/france.jpg", "France", "The Beautiful Landscape of France", "01/01/2016"));
-
-for(var i = 0; i < mImages.length; i++) {
-console.log(mImages[i]);
-};
+var mImages = [];
 
 // Holds the retrived JSON information
 var mJson;
@@ -111,7 +116,7 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage(location, description, date, img){
-	this.imglocation = location;
+	this.imgLocation = location;
 	this.description = description;
 	this.date = date;
 	this.imgPath = img;
