@@ -50,8 +50,25 @@ function swapPhoto(mJson) {
 	document.getElementsByClassName("description")[0].innerHTML = "Description: " + currentImg.description;
 	document.getElementsByClassName("date")[0].innerHTML = "Date: " + currentImg.date;
 
-	console.log("swap photo");
+	console.log('swap photo');
 }
+
+function returnSwap(){
+	mCurrentIndex--;
+	if(mCurrentIndex < 0){
+		mCurrentIndex = (mImages.length)-1;
+	}
+
+	var currentImg = mImages[mCurrentIndex];
+        console.log("Return Swap Photo: " + currentImg.imgPath);
+        document.getElementById("photo").src = currentImg.imgPath;
+        document.getElementsByClassName("location")[0].innerHTML = "Location: " + currentImg.imgLocation;
+        document.getElementsByClassName("description")[0].innerHTML = "Description: " + currentImg.description;
+        document.getElementsByClassName("date")[0].innerHTML = "Date: " + currentImg.date;
+
+        console.log('return swap');
+}
+
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
