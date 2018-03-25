@@ -38,48 +38,6 @@ function swapPhoto(mJson) {
 	//with a new image from your images array which is loaded 
 	//from the JSON string
 
-	$('#photo').attr("src", mImages[mCurrentIndex].image);
-	$('.location').html('<p>Location: ' + mImages[mCurrentIndex].location + '</p)');
-	$('.description').html('<p>Description: ' + mImages[mCurrentIndex].description + '</p)');
-	$('.date').html('<p>Date: ' + mImages[mCurrentIndex].date + '</p)');
-	
-	
-		if(mCurrentIndex < mImages.length) {
-			
-			$('.moreIndicator').click(function(){ 
-				$('.details').slideDown().toggle();
-				
-			});
-			
-		mCurrentIndex++;
-		
-		$('.details').hide();
-			
-		
-		} else { 
-			mCurrentIndex = 0; // resets it back to zero
-		
-		};
-		
-	console.log('swap photo');
-	console.log(mImages[mCurrentIndex].description);
-	
-};
-
-function reversSwap() {
-		if(mCurrentIndex == 0) {
-			
-			mCurrentIndex = mImages.length-1;
-		
-		mCurrentIndex++;
-		} else { 
-			mCurrentIndex = --
-			$('#photo').attr("src", mImages[mCurrentIndex].image);
-		
-		}
-	
-}
-
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -87,19 +45,34 @@ var mCurrentIndex = 0;
 // XMLHttpRequest variable
 
 var mRequest = new XMLHttpRequest();
-var url = "images.json";
+mRequest.onreadystatechange = function() {
+        if (mRequest.readyState == 4 && mRequest.status == 200) {
+            //console.log(‘responseText:’ + mRequest.responseText); // This helps you check if the JSON is input
+            try {
+                mJson = JSON.parse(mRequest.responseText); // This converts the JSON object into a JS object.
 
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var myArr = JSON.parse(this.responseText);
-        myFunction(myArr);
-    }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
-	
-};
-		
+               // this for loop makes sure to go through each image in the JSON file
+                for (var i = 0; i < mJson.images.length; i++) {
+	                
+                               // create a temporary variable holding all the image data for one line
+		        	var myLine = mJson.images[i];
+                              // add a new GalleryImage object into the mImages array which is defined outside this function.
+		        	mImages.push(new GalleryImage(myLine.imgLocation, myLine.description, myLine.date, myLine.imgPath));
+		        	
+		        	//console.log(mImages)
+		    	}
+		    	console.log(mImages)
+
+            } catch(err) {
+               // this code runs if there’s an error parsing the JSON data. 
+                console.log(err.message + " in " + mRequest.responseText);
+                return;
+            }
+        }
+    };
+mRequest.open("GET","images.json");
+
+
 // Array holding GalleryImage objects (see below).
 
 var mImages = []
@@ -109,7 +82,9 @@ mImages.push(new GalleryImage("img/places/greece.jpg", "Greece", "The Beautiful 
         mImages.push(new GalleryImage("img/places/italy.jpg", "Italy", "The Beautiful Landscape of italy", "01/01/2016"));
         mImages.push(new GalleryImage("img/places/france.jpg", "France", "The Beautiful Landscape of France", "01/01/2016"));
 
-
+for(var i = 0; i < mImages.length; i++) {
+console.log(mImages[i]);
+};
 
 // Holds the retrived JSON information
 var mJson;
@@ -144,10 +119,10 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage(location, description, date, img){
-	this.location = location;
+	this.imglocation = location;
 	this.description = description;
 	this.date = date;
-	this.image = img;
+	this.imgPath = img;
 }
 
 
