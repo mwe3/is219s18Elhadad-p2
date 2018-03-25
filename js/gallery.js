@@ -113,7 +113,7 @@ mRequest.onreadystatechange = function() {
 };
 
 mRequest.open("GET",mUrl, true);
-mrequest.send();
+mRequest.send();
 
 
 // Array holding GalleryImage objects (see below).
@@ -143,6 +143,36 @@ $(document).ready( function() {
 	
 	// This initially hides the photos' metadata information
 	$('.details').eq(0).hide();
+	$('.moreIndicator').click(function() {
+		console.log(".moreIndicator");
+		
+		if ($('.moreIndicator').hasClass("rot90")){
+			console.log("has rot90");
+			$('.moreIndicator').addClass("rot270").removeClass("rot90");
+			$('div.details').fadeToggle("fast", function() {
+				$('div.details').slideDown();
+			});
+		}else if ($('.moreIndicator').addClass("rot270")){
+			console.log("has rot270");
+			$('.moreIndicator').addClass("rot90").removeClass("rot270");
+			$('div.details').fadeToggle("fast", function(){
+				$('div.details').slideUp();
+			});
+		} else {
+			$('.moreIndicator').add("rot270")
+		}
+	});
+	
+	$('#nextPhoto').click(function(){
+		console.log("NEXT PHOTO");
+		swapPhoto();
+	});
+	
+	$('#prevPhoto').click(function(){
+		console.log("PREV PHOTO");
+		returnSwap();
+	})
+
 	
 });
 
