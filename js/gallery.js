@@ -115,11 +115,11 @@ window.addEventListener('load', function() {
 
 }, false);
 
-function GalleryImage(location, description, date, img){
-	this.imgLocation = location;
+function GalleryImage(imgLocation, description, date, imgPath){
+	this.imgLocation = imglocation;
 	this.description = description;
 	this.date = date;
-	this.imgPath = img;
+	this.imgPath = imgPath;
 }
 
 
