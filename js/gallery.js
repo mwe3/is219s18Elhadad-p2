@@ -47,30 +47,22 @@ var mCurrentIndex = 0;
 var mRequest = new XMLHttpRequest();
 mRequest.onreadystatechange = function() {
         if (mRequest.readyState == 4 && mRequest.status == 200) {
-            //console.log(‘responseText:’ + mRequest.responseText); // This helps you check if the JSON is input
-            try {
-                mJson = JSON.parse(mRequest.responseText); // This converts the JSON object into a JS object.
+	      try {
+              		 mJson = JSON.parse(mRequest.responseText); 
+              
+			console.log(mJson);
+                	for (var i = 0; i < mJson.images.length; i++) {
+	                	mImages.push(new GalleryImage(mJson.images[1].imgLocation, mJson.images[i].description, mJson.images[i].date, mJson.images[i].imgPath));
+				console.log(mJson.images[i].imgLocation + " " + mJson.images[i].description + " " + mJson.images[i].date + " " + mJson.images[i].imgPath);
+			}
+		} catch(err) {
+			console.log(err.message)
+		}
+	}
+};
 
-               // this for loop makes sure to go through each image in the JSON file
-                for (var i = 0; i < mJson.images.length; i++) {
-	                
-                               // create a temporary variable holding all the image data for one line
-		        	var myLine = mJson.images[i];
-                              // add a new GalleryImage object into the mImages array which is defined outside this function.
-		        	mImages.push(new GalleryImage(myLine.imgLocation, myLine.description, myLine.date, myLine.imgPath));
-		        	
-		        	//console.log(mImages)
-		    	}
-		    	console.log(mImages)
-
-            } catch(err) {
-               // this code runs if there’s an error parsing the JSON data. 
-                console.log(err.message + " in " + mRequest.responseText);
-                return;
-            }
-        }
-    };
-mRequest.open("GET","images.json");
+mRequest.open("GET",mUrl, true);
+mrequest.send();
 
 
 // Array holding GalleryImage objects (see below).
