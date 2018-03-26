@@ -44,12 +44,13 @@ function getQueryParams(qs) {
 	return params;
 }
 var $_GET = getQueryParams(document.location.search);
-console.log($_GET["json"]); 
+//console.log($_GET["json"]); 
 
 var mUrl = "images.json";
 if ($_GET["json"] != undefined){
 	mUrl = $_GET["json"];
 }
+
 
 
 function swapPhoto(mJson) {
@@ -64,7 +65,8 @@ function swapPhoto(mJson) {
 	}
 
 	var currentImg = mImages[mCurrentIndex];
-	console.log("Swap Photo: " + currentImg.imgPath);
+	console.log("THIS: " + mImages.length);
+	//console.log("Swap Photo: " + currentImg.imgPath);
 	document.getElementById("photo").src = currentImg.imgPath;
 	document.getElementsByClassName("location")[0].innerHTML = "Location: " + currentImg.imgLocation;
 	document.getElementsByClassName("description")[0].innerHTML = "Description: " + currentImg.description;
@@ -80,7 +82,7 @@ function returnSwap(){
 	}
 
 	var currentImg = mImages[mCurrentIndex];
-        console.log("Return Swap Photo: " + currentImg.imgPath);
+        //console.log("Return Swap Photo: " + currentImg.imgPath);
         document.getElementById("photo").src = currentImg.imgPath;
         document.getElementsByClassName("location")[0].innerHTML = "Location: " + currentImg.imgLocation;
         document.getElementsByClassName("description")[0].innerHTML = "Description: " + currentImg.description;
@@ -95,30 +97,45 @@ var mCurrentIndex = 0;
 
 // XMLHttpRequest variable
 
+function reqListener () {
+	console.log(this.responseText);
+}
+
+
 var mRequest = new XMLHttpRequest();
+
+// Array holding GalleryImage objects (see below).
+
+var mImages = [];
+
+
+
 mRequest.onreadystatechange = function() {
         if (mRequest.readyState == 4 && mRequest.status == 200) {
 	      try {
               		 mJson = JSON.parse(mRequest.responseText); 
               
-			console.log(mJson);
-                	for (var i = 0; i < mJson.images.length; i++) {
-	                	mImages.push(new GalleryImage(mJson.images[1].imgLocation, mJson.images[i].description, mJson.images[i].date, mJson.images[i].imgPath));
-				console.log(mJson.images[i].imgLocation + " " + mJson.images[i].description + " " + mJson.images[i].date + " " + mJson.images[i].imgPath);
+
+                for (var i = 0; i < mJson.images.length; i++) {
+                		//console.log("TEST: " + mJson.images[i].imgLocation);
+                		var myLine = mJson.images[i];
+	                	mImages.push(new GalleryImage(myLine.imgLocation, myLine.description, myLine.date, myLine.imgPath));
+						//console.log(mJson.images[i].imgLocation + " " + mJson.images[i].description + " " + mJson.images[i].date + " " + mJson.images[i].imgPath);
 			}
+
+
 		} catch(err) {
-			console.log(err.message)
+			//console.log(mRequest.responseText);
+			console.log("There was a file reading error")
+			return;
 		}
 	}
 };
 
-mRequest.open("GET",mUrl, true);
+mRequest.open("GET","images.json", true);
 mRequest.send();
 
 
-// Array holding GalleryImage objects (see below).
-
-var mImages = [];
 
 // Holds the retrived JSON information
 var mJson;
@@ -126,7 +143,7 @@ var mJson;
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 
-var mUrl = 'images.json';
+//Check to see what's in mImages
 
 
 
@@ -183,7 +200,7 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage(imgLocation, description, date, imgPath){
-	this.imgLocation = imglocation;
+	this.imgLocation = imgLocation;
 	this.description = description;
 	this.date = date;
 	this.imgPath = imgPath;
