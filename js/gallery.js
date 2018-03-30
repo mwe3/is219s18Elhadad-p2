@@ -53,7 +53,7 @@ if ($_GET["json"] != undefined){
 
 
 
-function swapPhoto(mJson) {
+function swapPhoto() {
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
@@ -102,21 +102,21 @@ function reqListener () {
 }
 
 
-var mRequest = new XMLHttpRequest();
+
 
 // Array holding GalleryImage objects (see below).
 
 var mImages = [];
 
-
+var mRequest = new XMLHttpRequest();
 
 mRequest.onreadystatechange = function() {
         if (mRequest.readyState == 4 && mRequest.status == 200) {
 	      try {
-              		 mJson = JSON.parse(mRequest.responseText); 
-              
+              		mJson = JSON.parse(mRequest.responseText); 
 
-                for (var i = 0; i < mJson.images.length; i++) {
+              		console.log(mJson)
+              		for (var i = 0; i < mJson.images.length; i++) {
                 		//console.log("TEST: " + mJson.images[i].imgLocation);
                 		var myLine = mJson.images[i];
 	                	mImages.push(new GalleryImage(myLine.imgLocation, myLine.description, myLine.date, myLine.imgPath));
@@ -132,7 +132,7 @@ mRequest.onreadystatechange = function() {
 	}
 };
 
-mRequest.open("GET","images.json", true);
+mRequest.open("GET",mUrl, true);
 mRequest.send();
 
 
@@ -201,6 +201,7 @@ $(document).ready( function() {
 	})
 
 	
+	
 });
 
 window.addEventListener('load', function() {
@@ -218,6 +219,7 @@ function GalleryImage(imgLocation, description, date, imgPath){
 
 	/* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
+
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -236,5 +238,7 @@ window.onclick = function(event) {
     }
   }
 }
+
+
 
 
