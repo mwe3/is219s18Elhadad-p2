@@ -2,11 +2,12 @@
     "images": [
 
         {
-            "imgPath": "img/places/iceland.jpg",
+            "imgPath": "img/places/Iceland.jpg",
             "imgLocation": "Iceland",
             "description": "Waterfall in Iceland",
             "date": "03/30/2018"
         },
+        
         {
             "imgPath": "img/places/egypt.jpg",
             "imgLocation": "Egypt",
