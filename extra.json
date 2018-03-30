@@ -1,17 +1,19 @@
 {
     "images": [
-        {
-            "imgPath": "img/places/egypt.jpg",
-            "imgLocation": "Egypt",
-            "description": "The Nile River",
-            "date": "03/30/2018"
-        },
+
         {
             "imgPath": "img/places/iceland.jpg",
             "imgLocation": "Iceland",
             "description": "Waterfall in Iceland",
             "date": "03/30/2018"
         },
+        {
+            "imgPath": "img/places/egypt.jpg",
+            "imgLocation": "Egypt",
+            "description": "The Nile River",
+            "date": "03/30/2018"
+        },
+        
         {
             "imgPath": "img/places/southAfrica.jpg",
             "imgLocation": "South Africa",
